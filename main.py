@@ -1,4 +1,3 @@
-from replit import clear
 from board_setup import Board
 from random import choice
 from asciiart import ascii
@@ -8,18 +7,12 @@ o_place = []
 gb = Board()
 clear = "\n" * 100
 
-def check_winner(let):
-    if let == "X":
-        for tic_tac_toe in gb.winning_sets:
-            if all(x in x_place for x in tic_tac_toe):
-                gb.winner = "goes to X!"
-                gb.game_is_on = False
-    else:
-        for tic_tac_toe in gb.winning_sets:
-            if all(o in o_place for o in tic_tac_toe):
-                gb.winner = "goes to O!"
-                gb.game_is_on = False
 
+def check_winner(let):
+    for tic_tac_toe in gb.winning_sets:
+        if all(x in gb.player[let] for x in tic_tac_toe):
+            gb.winner = f"goes to {let}!"
+            gb.game_is_on = False
     chars = set('MBLRT')
     if any((c in chars) for c in gb.remaining_choices):
         pass
@@ -45,10 +38,7 @@ def player_go(let):
             check = False
     letters = [a for a in select]
     gb.board[gb.placement[letters[0]]][gb.placement[letters[1]]] = f" {let} "
-    if let == "X":
-        x_place.append(select)
-    else:
-        o_place.append(select)
+    gb.player[let].append(select)
 
 
 def computer_go(let):
@@ -62,11 +52,7 @@ def computer_go(let):
             check = False
     letters = [a for a in computer_choice]
     gb.board[gb.placement[letters[0]]][gb.placement[letters[1]]] = f" {let} "
-    if let == "X":
-        x_place.append(computer_choice)
-    else:
-        o_place.append(computer_choice)
-
+    gb.player[let].append(computer_choice)
 
 def game():
     global gb

@@ -1,23 +1,15 @@
 class Board:
 
     def __init__(self):
-        self.aa = {"x": "x",
-                   "o": "0",
-                   "hor": '===',
-                   "ver": "|",
-                   }
+        self.aa = {"x": "x", "o": "0", "hor": '===', "ver": "|"}
         self.board = self.refresh_board()
         self.remaining_choices = self.remaining_choices()
+        self.o_place = []
+        self.x_place = []
         self.winner = ""
         self.game_is_on = True
-        self.placement = {
-            "T": 0,
-            "M": 2,
-            "R": 4,
-            "L": 0,
-            "B": 4,
-        }
-
+        self.player = {'O': self.o_place, "X": self.x_place}
+        self.placement = {"T": 0, "M": 2, "R": 4, "L": 0, "B": 4,}
 
         self.winning_sets = [["BL", "BM", "BR"], ["ML", "MR", "MM"], ["TL", "TM", "TR"],
                              ["TL", "ML", "BL"], ["TM", "MM", "BM"], ["TR", "MR", "BR"],
